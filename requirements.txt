@@ -1,0 +1,7 @@
+flask-cors
+requests
+numpy
+pillow
+transformers
+torch
+huggingface_hub[hf_xet]

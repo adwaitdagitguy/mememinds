@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MemeMind - AI Powered Meme Generator</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+        }
+        .loading {
+            animation: spin 2s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <header class="gradient-bg text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl font-bold text-center">MemeMind</h1>
+            <p class="text-xl text-center mt-2">AI-Powered Meme Generator</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-md p-6 max-w-2xl mx-auto">
+            <div class="mb-6">
+                <label for="topic" class="block text-gray-700 text-lg font-semibold mb-2">Enter a topic, headline, or trend:</label>
+                <textarea id="topic" rows="3" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:shadow-outline" placeholder="E.g., Tech companies laying off workers while reporting record profits"></textarea>
+            </div>
+
+            <div class="flex justify-center">
+                <button id="generateBtn" class="gradient-bg hover:opacity-90 text-white font-bold py-3 px-6 rounded-full transition duration-300 flex items-center">
+                    <span>Generate Meme</span>
+                    <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="loading" class="hidden mt-8 text-center">
+                <svg class="loading mx-auto w-12 h-12 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <p class="mt-3 text-gray-600">Creating your meme...</p>
+            </div>
+
+            <div id="result" class="hidden mt-8">
+                <h3 class="text-xl font-semibold text-center mb-4">Your AI-Generated Meme</h3>
+                <div class="flex justify-center">
+                    <div class="relative max-w-md">
+                        <img id="memeImage" src="" alt="Generated Meme" class="rounded-lg shadow-lg">
+                    </div>
+                </div>
+                <div class="mt-6 flex justify-center">
+                    <button id="downloadBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 mr-4">
+                        Download Meme
+                    </button>
+                    <button id="shareBtn" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">
+                        Share Meme
+                    </button>
+                </div>
+            </div>
+
+            <div class="mt-8 border-t pt-6">
+                <h3 class="text-lg font-semibold mb-3">Examples to try:</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <button class="example-btn text-left px-3 py-2 bg-gray-200 hover:bg-gray-300 rounded transition duration-200">
+                        Students pulling all-nighters before exams
+                    </button>
+                    <button class="example-btn text-left px-3 py-2 bg-gray-200 hover:bg-gray-300 rounded transition duration-200">
+                        When your code works but you don't know why
+                    </button>
+                    <button class="example-btn text-left px-3 py-2 bg-gray-200 hover:bg-gray-300 rounded transition duration-200">
+                        The price of concert tickets in 2025
+                    </button>
+                    <button class="example-btn text-left px-3 py-2 bg-gray-200 hover:bg-gray-300 rounded transition duration-200">
+                        Working from home vs. returning to the office
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-10 max-w-2xl mx-auto">
+            <h2 class="text-2xl font-bold mb-4">How It Works</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-5 rounded-lg shadow">
+                    <div class="text-blue-500 text-4xl mb-3">1</div>
+                    <h3 class="font-semibold text-lg mb-2">Topic Analysis</h3>
+                    <p class="text-gray-700">MemeMind analyzes your input to understand the sentiment, context, and entities involved.</p>
+                </div>
+                <div class="bg-white p-5 rounded-lg shadow">
+                    <div class="text-blue-500 text-4xl mb-3">2</div>
+                    <h3 class="font-semibold text-lg mb-2">Template Selection</h3>
+                    <p class="text-gray-700">Our AI selects the most appropriate meme template from our database that matches your topic.</p>
+                </div>
+                <div class="bg-white p-5 rounded-lg shadow">
+                    <div class="text-blue-500 text-4xl mb-3">3</div>
+                    <h3 class="font-semibold text-lg mb-2">Caption Generation</h3>
+                    <p class="text-gray-700">The system crafts witty, contextually relevant captions and places them on the template.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-16 py-6 bg-gray-800 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <p>MemeMind - Created for the AI Hackathon 2025</p>
+            <p class="mt-2 text-gray-400">Powered by Machine Learning, Computer Vision, and Open-Source AI</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const topicInput = document.getElementById('topic');
+            const generateBtn = document.getElementById('generateBtn');
+            const loadingDiv = document.getElementById('loading');
+            const resultDiv = document.getElementById('result');
+            const memeImage = document.getElementById('memeImage');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const shareBtn = document.getElementById('shareBtn');
+            const exampleBtns = document.querySelectorAll('.example-btn');
+
+            // API endpoint
+            const MEME_API_ENDPOINT = "/api/generate-meme";
+
+            // Click event for Generate button
+            generateBtn.addEventListener('click', function() {
+                generateMeme(topicInput.value);
+            });
+
+            // Click events for example buttons
+            exampleBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    topicInput.value = btn.textContent.trim();
+                    generateMeme(topicInput.value);
+                });
+            });
+
+            // Generate meme function
+            function generateMeme(topic) {
+                if (!topic.trim()) {
+                    alert('Please enter a topic first!');
+                    return;
+                }
+
+                // Show loading, hide result
+                loadingDiv.classList.remove('hidden');
+                resultDiv.classList.add('hidden');
+
+                // Call API
+                fetch(MEME_API_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ topic: topic })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        displayMeme(data.imageData || data.imageUrl);
+                    } else {
+                        alert('Error: ' + (data.error || 'Failed to generate meme'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Failed to connect to the server. Please try again.');
+                })
+                .finally(() => {
+                    loadingDiv.classList.add('hidden');
+                });
+            }
+
+            // Display the generated meme
+            function displayMeme(imageUrl) {
+                memeImage.src = imageUrl;
+                resultDiv.classList.remove('hidden');
+                
+                // Scroll to result
+                resultDiv.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            // Download button click event
+            downloadBtn.addEventListener('click', function() {
+                // Create a temporary link
+                const tempLink = document.createElement('a');
+                tempLink.href = memeImage.src;
+                tempLink.download = 'mememind-meme.png';
+                document.body.appendChild(tempLink);
+                tempLink.click();
+                document.body.removeChild(tempLink);
+            });
+
+            // Share button click event (just copy to clipboard)
+                shareBtn.addEventListener('click', function() {
+                // Create a temporary input
+                const tempInput = document.createElement('input');
+                tempInput.value = window.location.href;
+                document.body.appendChild(tempInput);
+                
+                // Select the URL
+                tempInput.select();
+                tempInput.setSelectionRange(0, 99999); // For mobile devices
+                
+                // Copy to clipboard
+                try {
+                    document.execCommand('copy');
+                    alert('Link copied to clipboard! Share it with your friends.');
+                } catch (err) {
+                    alert('Failed to copy link. Please copy it manually: ' + window.location.href);
+                }
+                
+                document.body.removeChild(tempInput);
+            });
+        });
+    </script>
+</body>
+</html>
